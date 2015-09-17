@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<body>
+<form id="form">
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.timers.js"></script>
+<script type="text/javascript" src="js/jquery-scrolltofixed-min.js"></script>
+<script>
+
+var step = 1;
+var stepdesc = [
+					'BLUE TEAM BANS! <div id="time">TIME REMAINING - 00:59</div>',
+					'BLUE TEAM BANS! <div id="time">TIME REMAINING - 00:59</div>',
+					'RED TEAM BANS! <div id="time">TIME REMAINING - 00:59</div>',
+					'RED TEAM BANS! <div id="time">TIME REMAINING - 00:59</div>',
+					'BLUE TEAM BANS! <div id="time">TIME REMAINING - 00:59</div>',
+					'BLUE TEAM PICKS! <div id="time">TIME REMAINING - 00:59</div>',
+					'RED TEAM PICKS! <div id="time">TIME REMAINING - 00:59</div>',
+					'RED TEAM PICKS! <div id="time">TIME REMAINING - 00:59</div>',
+					'BLUE TEAM PICKS! <div id="time">TIME REMAINING - 00:59</div>',
+					'BLUE TEAM PICKS! <div id="time">TIME REMAINING - 00:59</div>',
+					'RED TEAM PICKS! <div id="time">TIME REMAINING - 00:59</div>',
+					'RED TEAM PICKS! <div id="time">TIME REMAINING - 00:59</div>',
+					'BLUE TEAM PICKS! <div id="time">TIME REMAINING - 00:59</div>',
+					'BLUE TEAM PICKS! <div id="time">TIME REMAINING - 00:59</div>',
+					'RED TEAM PICKS! <div id="time">TIME REMAINING - 00:59</div>',
+					'RED TEAM PICKS! <div id="time">TIME REMAINING - 00:59</div>',
+					'BLUE TEAM PICKS! <div id="time">TIME REMAINING - 00:59</div>',
+					'READY TO PLAY!'
+				];
+
+$(document).ready(function(){
+	$(".selecao").click(function(){
+
+		$("#cost").children().removeAttr("selected");		
+		$("#energy").children().removeAttr("selected");		
+		
+		$(".filter").removeClass("filter");
+		tempo = 59;
+		$("#"+step).html("");
+		$(this).removeClass("selecao");
+		$(this).unbind("click");
+		$("#"+step).append($(this).clone());
+		$(this).css("opacity","0.3");
+		step++;
+		$("#step").html("");
+		$("#step").html(""+stepdesc[step]);
+		
+		if (stepdesc[step].split(" ")[0] == 'BLUE') {
+			$("#"+step).html("<img class='selecao' src='images/blue.jpg' width='80px'>");
+		}else if (stepdesc[step].split(" ")[0] == 'RED') {
+			$("#"+step).html("<img class='selecao' src='images/red.jpg' width='80px'>");
+		}else if (stepdesc[step].split(" ")[0] == 'READY') {
+			$(".selecao").unbind("click");
+			$(".selecao").removeClass("selecao");
+		}
+		
+		$("img").unbind("mouveover");
+		$("img").unbind("mouveout");
+		$("img").mouseover(function(){
+			$("#zoom").attr("src",$(this).attr("src"));
+		});
+		$("img").mouseout(function(){
+			$("#zoom").attr("src","images/blank.jpg");
+		});
+	});
+	
+	$('#header').scrollToFixed();
+	
+	$("img").mouseover(function(){
+		$("#zoom").attr("src",$(this).attr("src"));
+	});
+	$("img").mouseout(function(){
+		$("#zoom").attr("src","images/blank.jpg");
+	});
+});
+
+var tempo = 59;
+$(document).everyTime(1000, function(i) { 
+	tempo--;
+	if (tempo > 0) {
+		var t = tempo<10?"0"+tempo:""+tempo;
+		$("#time").html("TIME REMAINING - 00:"+t);
+	}else{
+		var rand_num = Math.floor(Math.random()*$(".selecao").size());
+		$(".selecao").eq(rand_num).click();
+		tempo=59;
+	}	
+});
+
+function filtra() {
+	var filtro = "";
+	if ($("#cost").val()!='c') {
+		filtro += "."+$("#cost").val();
+	}
+	if ($("#energy").val()!='e') {
+		filtro += "."+$("#energy").val();
+	}
+	
+	$(".selecao").addClass("filter");
+	
+	if (filtro=='') {
+		$(".selecao").removeClass("filter");
+	}else{
+		$(filtro).removeClass("filter");
+	}
+}
+</script>
+<style>
+.base{
+	border: white;
+	border-width: 3px;
+	border-style: solid;
+}
+.selecao:hover {
+	border: black;
+	border-width: 3px;
+	border-style: solid;
+}
+.filter{
+	opacity: 0.3;
+}
+</style>
+<table><tr>
+<td>
+<table>
+
+	<tr>
+		<td colspan="6" style="background-color: black;color:white">STARTER</td>
+	</tr>
+	<tr>
+<td><img class="selecao base m 2" id='i1' src='images/1.jpg' width='80px'></td>
+<td><img class="selecao base m 2" id='i2' src='images/2.jpg' width='80px'></td>
+<td><img class="selecao base m 2" id='i3' src='images/3.jpg' width='80px'></td>
+<td><img class="selecao base s 4" id='i4' src='images/4.jpg' width='80px'></td>
+<td><img class="selecao base s 4" id='i5' src='images/5.jpg' width='80px'></td>
+<td><img class="selecao base s 5" id='i6' src='images/6.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base f 7" id='i7' src='images/7.jpg' width='80px'></td>
+<td><img class="selecao base f 6" id='i8' src='images/8.jpg' width='80px'></td>
+<td><img class="selecao base f 6" id='i9' src='images/9.jpg' width='80px'></td>
+<td><img class="selecao base b 4" id='i10' src='images/10.jpg' width='80px'></td>
+<td><img class="selecao base b 3" id='i11' src='images/11.jpg' width='80px'></td>
+<td><img class="selecao base b 2" id='i12' src='images/12.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base s 4" id='i13' src='images/13.jpg' width='80px'></td>
+<td><img class="selecao base s 5" id='i14' src='images/14.jpg' width='80px'></td>
+<td><img class="selecao base s 4" id='i15' src='images/15.jpg' width='80px'></td>
+<td><img class="selecao base f 4" id='i16' src='images/16.jpg' width='80px'></td>
+<td><img class="selecao base f 4" id='i17' src='images/17.jpg' width='80px'></td>
+<td><img class="selecao base f 5" id='i18' src='images/18.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base m 3" id='i19' src='images/19.jpg' width='80px'></td>
+<td><img class="selecao base m 4" id='i20' src='images/20.jpg' width='80px'></td>
+<td><img class="selecao base m 2" id='i21' src='images/21.jpg' width='80px'></td>
+<td><img class="selecao base b 6" id='i22' src='images/22.jpg' width='80px'></td>
+<td><img class="selecao base b 6" id='i23' src='images/23.jpg' width='80px'></td>
+<td><img class="selecao base b 6" id='i24' src='images/24.jpg' width='80px'></td></tr>
+<tr>
+		<td colspan="6" style="background-color: grey;color:black">COMMON</td>
+	</tr>
+<tr>
+<td><img class="selecao base s 3" id='i35' src='images/35.jpg' width='80px'></td>
+<td><img class="selecao base f 2" id='i36' src='images/36.jpg' width='80px'></td>
+<td><img class="selecao base f 6" id='i37' src='images/37.jpg' width='80px'></td>
+<td><img class="selecao base b 5" id='i38' src='images/38.jpg' width='80px'></td>
+<td><img class="selecao base f 4" id='i39' src='images/39.jpg' width='80px'></td>
+<td><img class="selecao base s 5" id='i40' src='images/40.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base s 6" id='i41' src='images/41.jpg' width='80px'></td>
+<td><img class="selecao base m 7" id='i42' src='images/42.jpg' width='80px'></td>
+<td><img class="selecao base m 3" id='i43' src='images/43.jpg' width='80px'></td>
+<td><img class="selecao base b 2" id='i44' src='images/44.jpg' width='80px'></td>
+<td><img class="selecao base b 3" id='i45' src='images/45.jpg' width='80px'></td>
+<td><img class="selecao base b 4" id='i46' src='images/46.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base m 6" id='i47' src='images/47.jpg' width='80px'></td>
+<td><img class="selecao base m 5" id='i48' src='images/48.jpg' width='80px'></td>
+<td><img class="selecao base m 3" id='i49' src='images/49.jpg' width='80px'></td>
+<td><img class="selecao base m 4" id='i50' src='images/50.jpg' width='80px'></td>
+<td><img class="selecao base s 2" id='i51' src='images/51.jpg' width='80px'></td>
+<td><img class="selecao base f 5" id='i52' src='images/52.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base b 5" id='i53' src='images/53.jpg' width='80px'></td>
+<td><img class="selecao base b 6" id='i54' src='images/54.jpg' width='80px'></td>
+<td><img class="selecao base m 6" id='i55' src='images/55.jpg' width='80px'></td>
+<td><img class="selecao base b 4" id='i56' src='images/56.jpg' width='80px'></td>
+<td><img class="selecao base m 4" id='i57' src='images/57.jpg' width='80px'></td>
+<td><img class="selecao base s 6" id='i58' src='images/58.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base f 6" id='i59' src='images/59.jpg' width='80px'></td>
+<td><img class="selecao base f 6" id='i60' src='images/60.jpg' width='80px'></td>
+<td><img class="selecao base s 5" id='i61' src='images/61.jpg' width='80px'></td>
+<td><img class="selecao base f 5" id='i62' src='images/62.jpg' width='80px'></td>
+<td><img class="selecao base b 6" id='i63' src='images/63.jpg' width='80px'></td>
+<td><img class="selecao base s 4" id='i64' src='images/64.jpg' width='80px'></td></tr>
+<tr>
+		<td colspan="6" style="background-color: green;color:white">UNCOMMON</td>
+	</tr>
+<tr>
+<td><img class="selecao base s 3" id='i65' src='images/65.jpg' width='80px'></td>
+<td><img class="selecao base m 3" id='i66' src='images/66.jpg' width='80px'></td>
+<td><img class="selecao base s 6" id='i67' src='images/67.jpg' width='80px'></td>
+<td><img class="selecao base f 7" id='i68' src='images/68.jpg' width='80px'></td>
+<td><img class="selecao base b 7" id='i69' src='images/69.jpg' width='80px'></td>
+<td><img class="selecao base f 5" id='i70' src='images/70.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base s 6" id='i71' src='images/71.jpg' width='80px'></td>
+<td><img class="selecao base s 6" id='i72' src='images/72.jpg' width='80px'></td>
+<td><img class="selecao base m 6" id='i73' src='images/73.jpg' width='80px'></td>
+<td><img class="selecao base m 5" id='i74' src='images/74.jpg' width='80px'></td>
+<td><img class="selecao base b 4" id='i75' src='images/75.jpg' width='80px'></td>
+<td><img class="selecao base b 3" id='i76' src='images/76.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base f 6" id='i77' src='images/77.jpg' width='80px'></td>
+<td><img class="selecao base b 4" id='i78' src='images/78.jpg' width='80px'></td>
+<td><img class="selecao base s 6" id='i79' src='images/79.jpg' width='80px'></td>
+<td><img class="selecao base m 7" id='i80' src='images/80.jpg' width='80px'></td>
+<td><img class="selecao base m 6" id='i81' src='images/81.jpg' width='80px'></td>
+<td><img class="selecao base m 6" id='i82' src='images/82.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base s 2" id='i83' src='images/83.jpg' width='80px'></td>
+<td><img class="selecao base f 4" id='i84' src='images/84.jpg' width='80px'></td>
+<td><img class="selecao base b 6" id='i85' src='images/85.jpg' width='80px'></td>
+<td><img class="selecao base b 8" id='i86' src='images/86.jpg' width='80px'></td>
+<td><img class="selecao base m 5" id='i87' src='images/87.jpg' width='80px'></td>
+<td><img class="selecao base b 5" id='i88' src='images/88.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base m 5" id='i89' src='images/89.jpg' width='80px'></td>
+<td><img class="selecao base s 6" id='i90' src='images/90.jpg' width='80px'></td>
+<td><img class="selecao base f 4" id='i91' src='images/91.jpg' width='80px'></td>
+<td><img class="selecao base m 5" id='i92' src='images/92.jpg' width='80px'></td>
+<td><img class="selecao base f 5" id='i93' src='images/93.jpg' width='80px'></td>
+<td><img class="selecao base b 6" id='i94' src='images/94.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base f 5" id='i95' src='images/95.jpg' width='80px'></td>
+<td><img class="selecao base s 5" id='i96' src='images/96.jpg' width='80px'></td>
+<td><img class="selecao base b 6" id='i97' src='images/97.jpg' width='80px'></td>
+<td><img class="selecao base s 6" id='i98' src='images/98.jpg' width='80px'></td></tr>
+<tr>
+		<td colspan="6" style="background-color: yellow;color:black">RARE</td>
+	</tr>
+<tr>
+<td><img class="selecao base s 2" id='i99' src='images/99.jpg' width='80px'></td>
+<td><img class="selecao base f 2" id='i100' src='images/100.jpg' width='80px'></td>
+<td><img class="selecao base f 7" id='i101' src='images/101.jpg' width='80px'></td>
+<td><img class="selecao base b 7" id='i102' src='images/102.jpg' width='80px'></td>
+<td><img class="selecao base f 5" id='i103' src='images/103.jpg' width='80px'></td>
+<td><img class="selecao base s 6" id='i104' src='images/104.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base s 6" id='i105' src='images/105.jpg' width='80px'></td>
+<td><img class="selecao base m 7" id='i106' src='images/106.jpg' width='80px'></td>
+<td><img class="selecao base m 5" id='i107' src='images/107.jpg' width='80px'></td>
+<td><img class="selecao base b 4" id='i108' src='images/108.jpg' width='80px'></td>
+<td><img class="selecao base b 4" id='i109' src='images/109.jpg' width='80px'></td>
+<td><img class="selecao base b 3" id='i110' src='images/110.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base m 5" id='i111' src='images/111.jpg' width='80px'></td>
+<td><img class="selecao base m 6" id='i112' src='images/112.jpg' width='80px'></td>
+<td><img class="selecao base m 5" id='i113' src='images/113.jpg' width='80px'></td>
+<td><img class="selecao base m 5" id='i114' src='images/114.jpg' width='80px'></td>
+<td><img class="selecao base s 4" id='i115' src='images/115.jpg' width='80px'></td>
+<td><img class="selecao base f 4" id='i116' src='images/116.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base b 5" id='i117' src='images/117.jpg' width='80px'></td>
+<td><img class="selecao base b 7" id='i118' src='images/118.jpg' width='80px'></td>
+<td><img class="selecao base m 6" id='i119' src='images/119.jpg' width='80px'></td>
+<td><img class="selecao base b 6" id='i120' src='images/120.jpg' width='80px'></td>
+<td><img class="selecao base m 6" id='i121' src='images/121.jpg' width='80px'></td>
+<td><img class="selecao base s 7" id='i122' src='images/122.jpg' width='80px'></td></tr><tr>
+<td><img class="selecao base f 7" id='i123' src='images/123.jpg' width='80px'></td>
+<td><img class="selecao base f 6" id='i124' src='images/124.jpg' width='80px'></td>
+<td><img class="selecao base s 5" id='i125' src='images/125.jpg' width='80px'></td>
+<td><img class="selecao base f 4" id='i126' src='images/126.jpg' width='80px'></td>
+<td><img class="selecao base b 5" id='i127' src='images/127.jpg' width='80px'></td>
+<td><img class="selecao base s 5" id='i128' src='images/128.jpg' width='80px'></td></tr>
+<tr>
+		<td colspan="6" style="background-color: red;color:black">SUPER-RARE</td>
+	</tr>
+<tr>
+<td><img class="selecao base f 2" id='i129' src='images/129.jpg' width='80px'></td>
+<td><img class="selecao base b 3" id='i130' src='images/130.jpg' width='80px'></td>
+<td><img class="selecao base m 4" id='i131' src='images/131.jpg' width='80px'></td>
+<td><img class="selecao base f 6" id='i132' src='images/132.jpg' width='80px'></td>
+	
+	</tr>
+	
+	<tr>
+		<td colspan="8" align="center"></td>
+	</tr>
+</table>
+</td>
+<td style="vertical-align: top">
+<table  id="header">
+	<tr><td colspan="6"><h1>Marvel Dice Masters Draft</h1></td></tr>
+	<tr><td colspan="6"><div id="step">BLUE TEAM BANS! <div id="time">TIME REMAINING - 00:59</div></div></td></tr>
+	<tr>
+		<td colspan="2" align="right">Cost: <select id="cost" onchange="filtra()">
+			<option value="c">-</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+		</select></td>
+		<td colspan="2">Energy: <select id="energy" onchange="filtra()">
+			<option value="e">-</option>
+			<option value="b">Bolt</option>
+			<option value="f">Fist</option>
+			<option value="m">Mask</option>
+			<option value="s">Shield</option>
+		</select></td>
+		<td colspan="2"><input type="button" value="Reset" onclick="window.open('drafter.html','_self')"></td>
+	</tr>
+	<tr><td rowspan='7'><img id="zoom" src='images/blank.jpg' width='240px'></td></tr>
+	<tr style="background-color: black;color:white;">	
+		<td colspan="4">BANS</td></tr>
+	<tr id="bans">
+		<td id="1"><img class="base" src='images/blue.jpg' width='80px'></td>
+		<td id="2"><img class="base" src='images/blank.jpg' width='80px'></td>
+		<td id="3"><img class="base" src='images/blank.jpg' width='80px'></td>
+		<td id="4"><img class="base" src='images/blank.jpg' width='80px'></td>
+	</tr>
+	
+	<tr style="background-color: blue;color:white;">
+	<td colspan="6">BLUE TEAM</td></tr>
+	<tr id="blue">
+	
+		<td id="5"><img class="base" src='images/blank.jpg' width='80px'></td>
+		<td id="8"><img class="base" src='images/blank.jpg' width='80px'></td>
+		<td id="9"><img class="base" src='images/blank.jpg' width='80px'></td>
+		<td id="12"><img class="base" src='images/blank.jpg' width='80px'></td>
+		<td id="13"><img class="base" src='images/blank.jpg' width='80px'></td>
+		<td id="16"><img class="base" src='images/blank.jpg' width='80px'></td>
+	</tr>
+	<tr style="background-color: red;color:white;"><td colspan="6">RED TEAM</td></tr>
+	<tr id="red">
+		<td id="6"><img class="base" src='images/blank.jpg' width='80px'></td>
+		<td id="7"><img class="base" src='images/blank.jpg' width='80px'></td>
+		<td id="10"><img class="base" src='images/blank.jpg' width='80px'></td>
+		<td id="11"><img class="base" src='images/blank.jpg' width='80px'></td>
+		<td id="14"><img class="base" src='images/blank.jpg' width='80px'></td>
+		<td id="15"><img class="base" src='images/blank.jpg' width='80px'></td>
+	</tr>
+</table>
+</td></tr>
+</table>
+</form>
+</body>
+</html>

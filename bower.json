@@ -1,0 +1,21 @@
+{
+  "name": "Marvel Dice Masters Draft",
+  "version": "0.0.0",
+  "authors": [
+    "Bruno Tarmann <bruno@tarmann.com.br>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~3.10.1"
+  },
+  "devDependencies": {
+    "bootstrap": "~3.3.5"
+  }
+}
