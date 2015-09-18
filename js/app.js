@@ -63,10 +63,14 @@ var rarities     = getAttributes("rarity");
 var render = function(){
   $.each(characters, function(i, character){
     $("#characters").append([
-      '<div class="character col-xs-2 type-',fileName(character.type),'">',
-      '<img class="img-responsive" src="images/characters/', character.thumbnail ,'.jpg" alt="',character.name,'"/>',
+      '<div class="character col-xs-2">',
+        '<div class="character-costs">', character.cost, '</div>',
+        '<div class="character-type">',
+          '<img class="img-responsive" src="images/types/', fileName(character.type) ,'.png" alt="',character.type,'"/>',
+        '</div>',
+        '<img class="img-responsive" src="images/characters/', character.thumbnail ,'.jpg" alt="',character.name,'"/>',
       '</div>'
-    ].join(''))
+    ].join(''));
   });
 };
 
