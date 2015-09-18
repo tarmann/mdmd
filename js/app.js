@@ -63,15 +63,30 @@ var rarities     = getAttributes("rarity");
 var render = function(){
   $.each(characters, function(i, character){
     $("#characters").append([
-      '<div class="character col-xs-2">',
-        '<div class="character-costs">', character.cost, '</div>',
-        '<div class="character-type">',
-          '<img class="img-responsive" src="images/types/', fileName(character.type) ,'.png" alt="',character.type,'"/>',
+      '<div class="character">',
+        '<div class="character-inner">',
+          '<div class="character-costs">', character.cost, '</div>',
+          '<div class="character-type">',
+            '<img class="img-responsive" src="images/types/', fileName(character.type) ,'.png" alt="',character.type,'"/>',
+          '</div>',
+          '<div class="character-thumb" style="background-image: url(images/characters/', character.thumbnail ,'.jpg)"></div>',
         '</div>',
-        '<img class="img-responsive" src="images/characters/', character.thumbnail ,'.jpg" alt="',character.name,'"/>',
       '</div>'
     ].join(''));
   });
 };
 
+var bindEvents = function(){
+  var classes = ["select-red", "select-banned", "select-blue"];
+
+  $(".character").click(function () {
+    var classNum = $(this).data("classNum") || 0;
+    $(this).removeClass(classes[classNum]);
+    classNum = (classNum + 1)  % classes.length;
+    $(this).addClass(classes[classNum]);
+    $(this).data("classNum", classNum);
+  });
+};
+
 render();
+bindEvents();

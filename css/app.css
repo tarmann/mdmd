@@ -1,25 +1,80 @@
-  .character { position: relative; }
+* {
+  box-sizing: border-box;
+}
 
-  .character-type {
-    background: white;
-    position: absolute;
-    top: 10px;
-    right: 20%;
-    padding: 5px;
-    border-radius: 50%;
-  }
+body {
+  background-color: black;
+  background: black url(../images/bg/bg1.gif) no-repeat;
+  background-size: cover;
+}
 
-  .character-costs {
-    position: absolute;
-    left: 25px;
-    bottom: 10px;
-    background: white;
-    padding: 2px 5px;
-    border-radius: 20%;
-    font-weight: bold;
-  }
 
-  .type-bold { border-color: yellow; }
-  .type-fist { border-color: red; }
-  .type-shield { border-color: gray; }
-  .type-mask { border-color: purple; }
+#characters {
+  padding: 10px;
+  height: 100vh;
+}
+
+.character {
+  position: relative;
+  float: left;
+  width: 12vw;
+  height: 19vh;
+  padding: 10px;
+  object-fit: cover;
+}
+
+.character-inner {
+  background: black;
+  height: 100%;
+  cursor: pointer;
+  border: solid 4px white;
+}
+
+.character-thumb {
+  height: 100%;
+  text-align: center;
+}
+
+.character-thumb {
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.character-type {
+  background: white;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.character-costs {
+  position: absolute;
+  left: 10%;
+  bottom: 10%;
+  background: white;
+  padding: 2px 5px;
+  border-radius: 20%;
+  font-weight: bold;
+}
+
+.type-bold { border-color: yellow; }
+.type-fist { border-color: red; }
+.type-shield { border-color: gray; }
+.type-mask { border-color: purple; }
+
+
+/* selects */
+
+.select-banned .character-thumb {
+  opacity: 0.2;
+}
+
+.select-blue .character-inner {
+  border-color: blue;
+}
+
+.select-red .character-inner {
+  border-color: red;
+}
