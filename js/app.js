@@ -115,17 +115,26 @@
   };
 
   var showCards = function(e){
-    renderCards( $(e.currentTarget).attr('data-name') );
-    $("#cards").show();
+    var $characterEl = $(e.currentTarget);
+    var $cards = $('#cards');
+    var displayTop = $characterEl.offset().top > ( $('body').height() - $cards.height() - 50 );
+
+    console.log(displayTop);
+
+    $cards
+      .toggleClass('display-top', displayTop)
+      .toggleClass('display-bottom', !displayTop);
+
+    renderCards( $characterEl.parent().attr('data-name') );
   };
 
   var hideCards = function(){
-    $('#cards').hide();
+    $('#cards').removeClass('display-top display-bottom');
   };
 
   var bindEvents = function(){
     $(".character").click(toggleClass);
-    $(".character").hover(showCards, hideCards);
+    $(".character-inner").hover(showCards, hideCards);
   };
 
   render();
